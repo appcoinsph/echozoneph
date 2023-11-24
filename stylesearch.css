@@ -25,7 +25,7 @@ input[type="search"]{
 /*positioning background image*/
     background-position:8px 12px;
 /*changing background color form white*/
-    background-color:blackc;
+    background-color:black;
 }
 /*now using placeholder property to change color of acholder text and making it consitent accross the browser by use of prefix*/
 input[type="search"]::-webkit-input-placeholder{
