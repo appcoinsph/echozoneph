@@ -25,9 +25,9 @@ input[type="search"]{
 /*positioning background image*/
     background-position:8px 12px;
 /*changing background color form white*/
-    background-color:black;
+    background-color:white;
 }
-/*now using placeholder property to change color of acholder text and making it consitent accross the browser by use of prefix*/
+/*now using placeholder property to change color of holder text and making it consitent accross the browser by use of prefix*/
 input[type="search"]::-webkit-input-placeholder{
     color:#b1e0de;
 }
@@ -62,7 +62,7 @@ ul li{
 /*adding effect when the mouse is hovered over list item*/
 .searchbox ul li a:hover{
     color:#b23b61;
-    background:#ecd1da;
+    background:black;
 }
 /*moving it slightly toware right when hovered*/
 .searchbox ul li:hover{
