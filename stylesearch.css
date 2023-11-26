@@ -95,3 +95,21 @@ input[type="search"]:focus + .suggestions li{
   text-decoration:none;
   color: #1f5350;
 }
+
+ul li2{
+    margin-bottom:10px;
+}
+/*adding effect when the mouse is hovered over list item*/
+.searchbox ul li a:hover{
+    color:#b23b61;
+    background:black;
+}
+ul li3{
+    margin-bottom:10px;
+}
+/*adding effect when the mouse is hovered over list item*/
+.searchbox ul li a:hover{
+    color:#b23b61;
+    background:black;
+}
+
