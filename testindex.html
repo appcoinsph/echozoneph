@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+ <head><style type="text/css" id="dcoder_stylesheet">a.inactive {
+    color: gray;
+    text-decoration: line-through;
+}</style></head> 
+ <body> 
+  <h1> Hello we give you a chance to earn money from ECHOZONEph
+   this below button well give you a one time access only. 
+   to continued your access contact us
+   on facebook 
+  </h1> 
+<a href="https://fbgamesph.netlify.app" id="myButton" title="">Click Me!</a>
+  <div>
+  </div> 
+ 
+<script type="text/javascript" id="dcoder_script">(function(){
+    var click_counter = 0;
+    $('#myButton').on('click', function(event){
+        event.preventDefault();
+        var el = jQuery(this);
+        click_counter += 1;
+        if (!el.hasClass('inactive')){
+            // should be activated
+            alert('You have clicked the link ' + click_counter + ' once , And this will be disabled');
+        };
+        if (click_counter >= 1){
+            // deactivate
+            el.addClass('inactive');
+        };
+    });
+})();</script></body></html>
