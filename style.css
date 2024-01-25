@@ -298,7 +298,7 @@ main {
 .about{
     width: 100%;
     height: auto;
-    padding: 0 100px;
+    padding: 0 1000px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1120px 1400px ;
