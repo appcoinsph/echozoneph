@@ -298,11 +298,11 @@ main {
 .about{
     width: 100%;
     height: auto;
-    padding: 0 1000px;
+    padding: 0 100px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1120px 1400px ;
-    margin-bottom: 20px;
+    grid-template-rows: 120px 400px ;
+    margin-bottom: 200px;
     transform: translateY(-50px);
 }
 .about-text{
