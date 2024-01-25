@@ -297,7 +297,7 @@ main {
 }
 .about{
     width: 100%;
-    height: auto;
+    height: 400;
     padding: 0 100px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
