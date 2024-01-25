@@ -302,7 +302,7 @@ main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 120px 400px ;
-    margin-bottom: 200px;
+    margin-bottom: 2000px;
     transform: translateY(-50px);
 }
 .about-text{
