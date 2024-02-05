@@ -1,1 +1,62 @@
+body {
+  font-family: "Noto Sans Japanese", "Roboto", sans-serif;
+  background-color: #f2f2f2;
+  padding-top: 2em;
+}
 
+.dark-primary {
+  background-color: white;
+  height: 24px;
+  width: 100%;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.title-bar {
+  background-color: white;
+  color: white;
+  padding: 1em;
+  
+}
+
+.title-bar h1 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.card-style {
+  -webkit-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 0px;
+  left: 0;
+  margin-bottom: 2em;
+}
+
+.card-style blockquote {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.youtube-iframe iframe {
+  position: relative;
+}
+
+button {
+  background-color: white;
+  border: none;
+  color: #448AFF;
+  padding: 1em;
+  font-size: 16px;
+  text-transform: uppercase;
+  outline: 0;
+  
+}
+
+.btn-bar {
+  padding: 8px 16px 16px 16px;
+  width: 100%;
+  text-align: right;
+}
