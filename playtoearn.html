@@ -1,0 +1,582 @@
+<html lang="en"> 
+ <head>
+  </head><body><h><marquee><mark>Website template: trial2022</mark></marquee></h>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <style>
+.alert {
+  padding: 40px;
+  background-color: #f44336;
+  font-size: 15px;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+.alert.GUIDES {background-color: #f44336;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  line-height: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style> 
+ <style type="text/css" id="dcoder_stylesheet">@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+*{
+  margin:  0;
+  padding : 0 ;
+  box-sizeing : border-box;
+  font-family : "poppins" , sans-serif;
+}
+
+body{
+  background: url("https://source.unsplash.com/500x900/?nature,water");
+  background-repeat: no-repeat;
+}
+
+nav{
+  display: flex;
+  height: 80px;
+  width: 100%;
+  background: skyblue;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 50px 0px 100px;
+}
+
+nav .logo{
+  color: #fff;
+  font-size: 33px;
+  font-weight: 600;
+}
+nav ul{
+  display: flex;
+  list-style: none;
+}
+
+nav li{
+  margin: 0px 5px;
+}
+
+nav li a{
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  padding: 8px 10px;
+  transition: all 0.5s ease;
+}
+
+nav .menu-btn i{
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: none;
+}
+
+nav li a:hover,
+nav li a.active{
+  color: #1b1b1b;
+  background: #fff;
+}
+
+#click{
+display: none;
+}
+
+@media (max-width : 850px){
+  
+  nav .menu-btn i{
+    display: block;
+  }
+  
+  #click:cheked ~ .menu-btn i:before{
+    content: "\f00d";
+  }
+  
+  nav ul{
+    position: fixed;
+    top : 80px;
+    left: -100%;
+    background: #111;
+    height: 100vh;
+    width: 100%;
+    display: block;
+    text-align: center;
+    transition: all  0.5s ease;
+  }
+  
+  #click:checked ~ ul{
+   left: 0%;
+  }
+  nav ul li{
+    margin: 40px 0;
+  }
+  
+  nav ul li a{
+    font-size: 20px;
+    display: block;
+  }
+  
+  nav li a:hover,
+nav li a.active{
+  color: cyan;
+  background: none;
+}
+
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  transition:.2s all linear;
+  outline:none; border:none;
+  text-transform:capitalize;
+  font-family:verdana,Geneva,Tohama,sans-serif;
+}
+html{
+  font-size:50.5%;
+}
+.container{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.btn{
+  color:#fff;
+  background:#ff6933;
+  cursor:pointer;
+  box-shadow:0 .5rem 1rem rgba(0,0,0,3);
+  border-radius:.5rem;
+  
+}
+.btn:hover{
+  background:#ff4400;
+}
+.btn:active{
+  transform:scale(.9);
+}
+#button{
+width:18rem;
+height:7rem;
+font-size:3rem;
+font-weight:555;
+}
+.pop-container{
+  position:fixed;
+  top:-120%;
+  left:0;
+  background:rgba(0,0,0,.3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100%; width:100%;
+  z-index:1000;
+}
+.hideShow{
+  top:0;
+}
+.pop-container .popup{
+  background:#fff;
+  text-align:center;
+  margin:1rem;
+  padding:1rem;
+  box-shadow:0 1rem 1rem rgba(0,0,0,.5);
+  border-radius:.5rem;
+  position: relative;
+}
+.pop-container .popup h3{
+  color:#444;
+  padding:1.4rem 3rem;
+  font-size:4rem;
+}
+.pop-container .popup .btn{
+  font-size:4rem;
+  margin:3rem;
+  padding:1rem 1.7rem;
+ 
+  }
+  
+  .pop-container .popup input[type="radio"]{
+    display:none;
+  }
+  .pop-container .popup .icon{
+    padding:1rem;
+  }
+  .pop-container .popup .icon label{
+    font-size:5rem;
+    cursor:pointer;
+    opacity:.4;
+  }
+   .pop-container .popup .icon:hover label{
+     opacity:.2;
+   }
+   
+   .pop-container .popup #btn1:checked ~ .icon label:nth-child(1),
+    .pop-container .popup #btn2:checked ~ .icon label:nth-child(2),
+    .pop-container .popup #btn3:checked ~ .icon label:nth-child(3),
+    .pop-container .popup #btn4:checked ~ .icon label:nth-child(4),
+    .pop-container .popup #btn5:checked ~ .icon label:nth-child(5),
+  
+   .pop-container .popup .icon label:hover{
+     opacity:1;
+     font-size:6rem;
+   }
+   .pop-container .popup #close{
+     position:absolute;
+     top:-1.5rem; right:-1.5rem;
+     width:4rem;
+     height:4rem;
+     border:.4rem solid #ff6933;
+    border-radius:50%;
+    background:#333;
+    color:white;
+    font-size:3rem;
+    line-height:3.5rem;
+    cursor:pointer;
+   }
+     .pop-container .popup #close:hover{
+       transform:rotate(180deg);
+     }</style> 
+
+
+
+ 
+  
+  <title>informative login form</title> 
+  <style>
+   .box{
+     background-color:Transparent;
+     color: white;
+     text-align:center;
+      width:400px;
+      height:250px;
+     border-radius:8px;
+     border-color: black;
+     margin-top:100px;
+   }
+   h1{
+     font-size:30px;
+     font-family:Trebuchet MS;
+   }
+   #submit{
+     width:200px;
+     height:24px;
+     border-radius: 8px;
+     color: white;
+     background-color: green;
+     table-layout: center;
+   }
+   #text{
+     text-align:center;
+     font-size: 24px;
+     width:250px;
+     border-radius:8px;
+     border-color:black;
+     
+   }
+   }
+ </style> 
+ <style type="text/css" id="dcoder_stylesheet">@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+*{
+  margin:  0;
+  padding : 0 ;
+  box-sizeing : border-box;
+  font-family : "poppins" , sans-serif;
+}
+
+body{
+  background: url("https://source.unsplash.com/500x900/?nature,water");
+  background-repeat: no-repeat;
+}
+
+nav{
+  display: flex;
+  height: 80px;
+  width: 100%;
+  background: skyblue;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 50px 0px 100px;
+}
+
+nav .logo{
+  color: #fff;
+  font-size: 33px;
+  font-weight: 600;
+}
+nav ul{
+  display: flex;
+  list-style: none;
+}
+
+nav li{
+  margin: 0px 5px;
+}
+
+nav li a{
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  padding: 8px 10px;
+  transition: all 0.5s ease;
+}
+
+nav .menu-btn i{
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: none;
+}
+
+nav li a:hover,
+nav li a.active{
+  color: #1b1b1b;
+  background: #fff;
+}
+
+#click{
+display: none;
+}
+
+@media (max-width : 850px){
+  
+  nav .menu-btn i{
+    display: block;
+  }
+  
+  #click:cheked ~ .menu-btn i:before{
+    content: "\f00d";
+  }
+  
+  nav ul{
+    position: fixed;
+    top : 80px;
+    left: -100%;
+    background: #111;
+    height: 100vh;
+    width: 100%;
+    display: block;
+    text-align: center;
+    transition: all  0.5s ease;
+  }
+  
+  #click:checked ~ ul{
+   left: 0%;
+  }
+  nav ul li{
+    margin: 40px 0;
+  }
+  
+  nav ul li a{
+    font-size: 20px;
+    display: block;
+  }
+  
+  nav li a:hover,
+nav li a.active{
+  color: cyan;
+  background: none;
+}
+
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  transition:.2s all linear;
+  outline:none; border:none;
+  text-transform:capitalize;
+  font-family:verdana,Geneva,Tohama,sans-serif;
+}
+html{
+  font-size:50.5%;
+}
+.container{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.btn{
+  color:#fff;
+  background:#ff6933;
+  cursor:pointer;
+  box-shadow:0 .5rem 1rem rgba(0,0,0,3);
+  border-radius:.5rem;
+  
+}
+.btn:hover{
+  background:#ff4400;
+}
+.btn:active{
+  transform:scale(.9);
+}
+#button{
+width:18rem;
+height:7rem;
+font-size:3rem;
+font-weight:555;
+}
+.pop-container{
+  position:fixed;
+  top:-120%;
+  left:0;
+  background:rgba(0,0,0,.3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100%; width:100%;
+  z-index:1000;
+}
+.hideShow{
+  top:0;
+}
+.pop-container .popup{
+  background:#fff;
+  text-align:center;
+  margin:1rem;
+  padding:1rem;
+  box-shadow:0 1rem 1rem rgba(0,0,0,.5);
+  border-radius:.5rem;
+  position: relative;
+}
+.pop-container .popup h3{
+  color:#444;
+  padding:1.4rem 3rem;
+  font-size:4rem;
+}
+.pop-container .popup .btn{
+  font-size:4rem;
+  margin:3rem;
+  padding:1rem 1.7rem;
+ 
+  }
+  
+  .pop-container .popup input[type="radio"]{
+    display:none;
+  }
+  .pop-container .popup .icon{
+    padding:1rem;
+  }
+  .pop-container .popup .icon label{
+    font-size:5rem;
+    cursor:pointer;
+    opacity:.4;
+  }
+   .pop-container .popup .icon:hover label{
+     opacity:.2;
+   }
+   
+   .pop-container .popup #btn1:checked ~ .icon label:nth-child(1),
+    .pop-container .popup #btn2:checked ~ .icon label:nth-child(2),
+    .pop-container .popup #btn3:checked ~ .icon label:nth-child(3),
+    .pop-container .popup #btn4:checked ~ .icon label:nth-child(4),
+    .pop-container .popup #btn5:checked ~ .icon label:nth-child(5),
+  
+   .pop-container .popup .icon label:hover{
+     opacity:1;
+     font-size:6rem;
+   }
+   .pop-container .popup #close{
+     position:absolute;
+     top:-1.5rem; right:-1.5rem;
+     width:4rem;
+     height:4rem;
+     border:.4rem solid #ff6933;
+    border-radius:50%;
+    background:#333;
+    color:white;
+    font-size:3rem;
+    line-height:3.5rem;
+    cursor:pointer;
+   }
+     .pop-container .popup #close:hover{
+       transform:rotate(180deg);
+     }</style> 
+  
+  <div align="center"> 
+   <form class="box" action="login html" method="post"> 
+    <h1>MEMBERS INFORMATION </h1> 
+    <hr> 
+   <h2> <p style="color:black"> this log in area is for
+      <br>VERIFIED MEMBERS ONLY, <br><br> AUTHORIZE MEMBERS FROM NORMAL SERVER or ADVANCE SERVER <br><br>AND ECHONOMY POOL MEMBERS ARE ALLOWED TO ENTER</p></h2> 
+    <input type="text" name="userid" id="text" placeholder="Enter Username" required> 
+    <br> 
+    <br> 
+    <input type="password" name="paswrd" id="text" placeholder="Enter Password" required> 
+    <br> 
+    <br> 
+    <input type="submit" id="submit" onclick="check (this.form)" value="Login"> 
+   </form> 
+  </div> 
+  <script lang="javascript ">
+          
+          function check(form)
+{
+       if(form.userid.value=="1234"&&    form.paswrd.value=="trial")
+    
+     {
+     
+window.open("https://www.youtube.com");
+    return false;
+
+      }
+
+       if(form.userid.value=="TEST1"&&    form.paswrd.value=="1234")
+    
+     {
+     
+window.open("https://www.google.com/");
+    return false;
+
+      }
+if(form.userid.value=="TRIAL"&&form.paswrd.value=="1234")
+    
+     {
+     
+window.open("https://m.youtube.com/");
+    return false;
+
+      }
+     else
+   {
+      alert ("login failed");
+    
+     }
+  
+}  
+</script> 
+ 
+<h><marquee>Website template: trial2022</marquee></h>
+
+
+</body></html>
+
+
