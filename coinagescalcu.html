@@ -159,7 +159,7 @@
    // Output
    var finalValueOfStart = start * Math.pow(1.0+ret, months);
    var finalValueOfMonthlyInvestments = final - finalValueOfStart
-   var monthlyInvestments = (finalValueOfMonthlyInvestments * ret / (Math.pow(1.0+ret,months) -1)).toFixed(3);
+   var monthlyInvestments = (finalValueOfMonthlyInvestments * ret / (Math.pow(1.0+ret,months) -1)).toFixed(5);
    
    if (monthlyInvestments >= 0) { 
     document.getElementById('outputDiv').innerHTML = 'You should WITHDRAW <br>' + monthlyInvestments +' PHP.';     
