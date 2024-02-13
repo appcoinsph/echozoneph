@@ -1,15 +1,117 @@
-<div class="form-style-2">
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+   <meta name="viewport" content="width=device-width"> 
+  <style type="text/css" id="dcoder_stylesheet">
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+<style type="text/css">
+.form-style-2{
+  max-width: 250px;
+  padding: 20px 12px 10px 20px;
+  font: 13px Arial, Helvetica, sans-serif;
+}
+.form-style-2-heading{
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 5px;
+  font-size: 17px;
+  padding-bottom: 1px;
+}
+.form-style-2 label{
+  display: block;
+  margin: 0px 0px 5px 0px;
+}
+.form-style-2 label > span{
+  width: 99px;
+  font-weight: bold;
+  float: left;
+  padding-top: 7px;
+  padding-right: 5px;
+}
+.form-style-2 span.required{
+  color:red;
+}
+.form-style-2 input.input-field {
+  width: 140px;
+  margin-right: 3px;
+}
+.form-style-2 input.input-field2 {
+  width: 90px;
+  margin-right: 3px;
+}
+.form-style-2 .select-field{
+  width: 95px;  
+}
+.form-style-2 .select-field2{
+  width: 95px;  
+}
+
+.form-style-2 input.input-field, 
+.form-style-2 input.input-field2, 
+.form-style-2 .tel-number-field,
+.form-style-2 .textarea-field, 
+.form-style-2 .select-field,
+.form-style-2 .select-field2{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px solid #C2C2C2;
+  box-shadow: 1px 1px 4px #EBEBEB;
+  -moz-box-shadow: 1px 1px 4px #EBEBEB;
+  -webkit-box-shadow: 1px 1px 4px #EBEBEB;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 7px;
+  outline: none;
+}
+.form-style-2 .input-field:focus, 
+.form-style-2 .input-field2:focus, 
+.form-style-2 .tel-number-field:focus, 
+.form-style-2 .textarea-field:focus,  
+.form-style-2 .select-field:focus,
+.form-style-2 .select-field2:focus{
+  border: 1px solid #0C0;
+}
+.form-style-2 .textarea-field{
+  height:100px;
+  width: 55%;
+}
+.form-style-2 input[type=submit],
+.form-style-2 input[type=button]{
+  border: none;
+  padding: 8px 15px 8px 15px;
+  background: #FF8500;
+  color: #fff;
+  box-shadow: 1px 1px 4px #DADADA;
+  -moz-box-shadow: 1px 1px 4px #DADADA;
+  -webkit-box-shadow: 1px 1px 4px #DADADA;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+.form-style-2 input[type=submit]:hover,
+.form-style-2 input[type=button]:hover{
+  background: #EA7B00;
+  color: #fff;
+}
+.form-style-2 .result-field {
+  padding: 6px;
+  outline: none;
+}
+</style></style></head><body><div class="form-style-2">
   <div class="form-style-2-heading">Calculator - for CoinAGES</div>
   <form action="" method="post">
 
-    <label for="start"><span>SHIB:</span><input id="start" type="text" class="input-field" type="number" value="150000" onKeyUp="updateCalc()"/> </label>
+    <label for="start"><span>COINS:</span><input id="start" type="text" class="input-field" type="number" value="100000" onkeyup="updateCalc()"> </label>
 
-    <label for="final"><span>RE-ENTER:</span><input id="final" type="text" class="input-field" value="1000000" onKeyUp="updateCalc()"/> </label>
+    <label for="final"><span>RE-ENTER:</span><input id="final" type="text" class="input-field" value="100000" onkeyup="updateCalc()"> </label>
 
     <label for="return">
-      <span>%(0.60):</span>
-      <input type="text" class="input-field2" id="returnRate" value="7.0" onKeyUp="updateCalc()"/>
-      <select id="returnType" class="select-field" onChange="updateCalc()">
+      <span>%(GREEN):</span>
+      <input type="text" class="input-field2" id="returnRate" value="0.00002" onkeyup="updateCalc()">
+      <select id="returnType" class="select-field" onchange="updateCalc()">
         <option value="year">per year</option>
         <option value="month">per month</option>
       </select>
@@ -17,8 +119,8 @@
 
     <label for="time">
       <span>Time:</span>
-      <input type="text" class="input-field2" id="time" value="20" onKeyUp="updateCalc()"/>
-      <select id="timeType" class="select-field2" onChange="updateCalc()">
+      <input type="text" class="input-field2" id="time" value="1" onkeyup="updateCalc()">
+      <select id="timeType" class="select-field2" onchange="updateCalc()">
         <option value="year">years</option>
         <option value="month">months</option>
       </select>
@@ -29,4 +131,47 @@
       <div class="result-field" id="outputDiv">...</div>
     </label>
 
-</div>
+</form></div><script type="text/javascript" id="dcoder_script"> function updateCalc() {
+   // Get input data
+   var start = parseFloat(document.getElementById('start').value);
+   var final = parseFloat(document.getElementById('final').value);
+   var returnRate = parseFloat(document.getElementById('returnRate').value);
+   var returnType = document.getElementById('returnType').selectedIndex;
+   var time = parseFloat(document.getElementById('time').value);
+   var timeType = document.getElementById('timeType').selectedIndex;
+   
+   // Handle months/years
+   var ret = 0.0;
+   if (returnType == 0) {
+     ret = Math.pow(1.0+returnRate/100.0,1.0/12.0) - 1.0;
+   }   
+   else {
+     ret = returnRate/0.00002;
+   }
+   
+   var months = time*12;
+   var years = time;
+   if (timeType == 1) {
+     months = time;
+     years = time/12;
+   }
+   
+   // Output
+   var finalValueOfStart = start * Math.pow(1.0+ret, months);
+   var finalValueOfMonthlyInvestments = final - finalValueOfStart
+   var monthlyInvestments = (finalValueOfMonthlyInvestments * ret / (Math.pow(1.0+ret,months) -1)).toFixed(3);
+   
+   if (monthlyInvestments >= 0) { 
+    document.getElementById('outputDiv').innerHTML = 'You should WITHDRAW <br>' + monthlyInvestments +' PHP.';     
+   }
+   else if (monthlyInvestments < 0) {
+     document.getElementById('outputDiv').innerHTML = 'You could withdraw <br>' + -monthlyInvestments +' PHP thru GCash.';     
+   }
+   else {
+     document.getElementById('outputDiv').innerHTML = 'Check your input data.';     
+   }
+   
+   return false;   
+ }
+
+updateCalc();</script></body></html>
