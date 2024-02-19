@@ -1,19 +1,28 @@
-<html><head><style type="text/css" id="dcoder_stylesheet">a.inactive {
-    color: gray;
-    text-decoration: line-through;
-}</style></head><body><a href="https://echozoneph.online" id="myButton" title="">Click Me!</a><script type="text/javascript" id="dcoder_script">(function(){
-    var click_counter = 0;
-    $('#myButton').on('click', function(event){
-        event.preventDefault();
-        var el = jQuery(this);
-        click_counter += 1;
-        if (!el.hasClass('inactive')){
-            // should be activated
-            alert('You have clicked the link ' + click_counter + ' once , And this will be disabled');
-        };
-        if (click_counter >= 1){
-            // deactivate
-            el.addClass('inactive');
-        };
-    });
-})();</script></body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml" >
+  <title>Untitled Page</title>
+  <script type = "text/javascript" >
+  function changeHashOnLoad() {
+ window.location.href += "#";
+ setTimeout("changeHashAgain()", "50"); 
+ }
+
+function changeHashAgain() {
+window.location.href += "1";
+}
+
+var storedHash = window.location.hash;
+ window.setInterval(function () {
+ if (window.location.hash != storedHash) {
+     window.location.hash = storedHash;
+}
+}, 50);
+
+
+</script>
+ </head>
+ <body onload="changeHashOnLoad(); ">
+  Try to hit back!
+ </body>
+ </html>`
