@@ -5,7 +5,7 @@
   <script type = "text/javascript" >
   function changeHashOnLoad() {
  window.location.href += "/index.html";
- setTimeout("changeHashAgain()", "50"); 
+ setTimeout("changeHashAgain()", "3"); 
  }
 
 function changeHashAgain() {
@@ -17,7 +17,7 @@ var storedHash = window.location.hash;
  if (window.location.hash != storedHash) {
      window.location.hash = storedHash;
 }
-}, 50);
+}, 3);
 
 
 </script>
