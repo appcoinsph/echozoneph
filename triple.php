@@ -1,39 +1,29 @@
 <?php
-
-    include("variables.php");
-
-    $password = trim($_SERVER['QUERY_STRING']);
-
-    if($password == ADMIN_PASSWORD) {
-        $new = uniqid('key',TRUE);
-
-        if(!is_dir('keys')) {
-            mkdir('keys');
-            $file = fopen('keys/.htaccess','w');
-            fwrite($file,"Order allow,deny\nDeny from all");
-            fclose($file);
-        }
-
-        $file = fopen('keys/keys','a');
-        fwrite($file,"{$new}\n");
-        fclose($file);
+if (!isset($_SESSION)) {
+    $session = session_start();
+} 
+if ($session && !isset($_SESSION['login_time'])) {
+    if ($session == 1) {
+        $_SESSION['login_time']=time();
+        echo "Login :".$_SESSION['login_time'];
+        echo "<br>";
+        $_SESSION['idle_time']=$_SESSION['login_time']+20;
+        echo "Session Idle :".$_SESSION['idle_time'];
+        echo "<br>";
+    } else{
+        $_SESSION['login_time']="";
+    }
+} else {
+    if (time()>$_SESSION['idle_time']){
+        echo "Session Idle :".$_SESSION['idle_time'];
+        echo "<br>";
+        echo "Current :".time();
+        echo "<br>";
+        echo "Session Time Out";
+        session_destroy();
+        session_unset();
+    } else {
+        echo "Logged In<br>";
+    }
+}
 ?>
-
-<html>
-    <head>
-        <title>Page created</title>
-        <style>
-            nl { 
-                font-family: monospace 
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Page key created</h1>
-        Your new single-use page link:<br>
-        <nl>
-        <?php 
-            echo "http://" . $_SERVER['HTTP_HOST'] . DOWNLOAD_PATH . "?" . $new; 
-        ?></nl>
-    </body>
-</html>
