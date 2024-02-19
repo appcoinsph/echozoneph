@@ -26,7 +26,7 @@
             $_SESSION['start'] = time(); // Taking now logged in time.
             // Ending a session in 30 minutes from the starting time.
             $_SESSION['expire'] = $_SESSION['start'] + (30 * 60);
-            header('Location: http://localhost/somefolder/homepage.php');
+            header('Location: homepage.php');
         } else {
             echo "Please enter the username or password again!";
         }
