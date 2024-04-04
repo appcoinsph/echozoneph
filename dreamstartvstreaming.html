@@ -1,29 +1,76 @@
 <!doctype html>
 <html lang="en"> 
  <head> 
-  <meta charset="UTF-8"> 
-  <title>ECHOZONE and DREAMSTAR TV</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width"> 
-<link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sanchez:ital@1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Exo+2:ital,wght@1,300&family=Rajdhani&display=swap" rel="stylesheet">
-   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"> 
+  <title>dreamstar teleradio and echozone partnership</title> 
   <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css"> 
-  <link rel="stylesheet" href="style.css"> 
- <style type="text/css" id="dcoder_stylesheet">.container {
+  <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"> 
+  <link rel="stylesheet" href="./style.css"> 
+ <style type="text/css" id="dcoder_stylesheet">.player-container {
   margin: 20px auto;
   width: 100%;
 }
 video {
   width: 100%;
-}</style></head> 
+}
+
+
+:root {
+  --plyr-color-main: #dd9e17;
+  --plyr-control-icon-size: 30px;
+  --plyr-range-track-height: 10px;
+}
+:root body {
+  background: #010819;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+}
+:root .player-container {
+  margin: 0 auto;
+  max-width: 700px;
+}
+:root .player-container #offline i {
+  color: #ad0505;
+}
+:root .player-container #online {
+  display: none;
+}
+:root .player-container #online i {
+  -webkit-animation: blinker 1s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+          animation: blinker 1s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+  color: #05ad12;
+}
+@-webkit-keyframes blinker {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+@keyframes blinker {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+
+
+
+
+
+
+</style></head> 
  <body> <!-- partial:index.partial.html --> 
-    <div class="container"> 
-   <video controls crossorigin playsinline poster=""></video> 
+  <meta name="viewport" content="width=device-width"> 
+  <div class="player-container"> 
+   <h2 id="offline"> <i class="fa fa-circle"></i>&nbsp; Stream on Pause </h2> 
+   <h2 id="online"> <i class="fa fa-circle blinker"></i>&nbsp; Now Streaming Live </h2> 
+   <video controls crossorigin playsinline poster="https://e-cratesrentalph.netlify.app/echozonepromotionalbanner.jpg"></video> 
   </div> <!-- Plyr resources and browser polyfills are specified in the pen settings --> <!-- Hls.js 0.9.x and 0.10.x both have critical bugs affecting this demo. Using fixed git hash to when it was working (0.10.0 pre-release), until https://github.com/video-dev/hls.js/issues/1790 has been resolved --> 
   <script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script> <!-- partial --> 
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script> 
@@ -51,9 +98,40 @@ video {
     player.on('languagechange', () => {
       // Caption support is still flaky. See: https://github.com/sampotts/plyr/issues/994
       setTimeout(() => hls.subtitleTrack = player.currentTrack, 50);
-    });
+    })
+    
+   const offline = document.getElementById("offline")
+const online = document.getElementById("online")
+online.style.display = "none"
+offline.style.display = "block"
+
+player.on('playing', event => {
+  offline.style.display = "none"
+  online.style.display = "block"
+})
+
+player.on('pause', event => {
+  offline.style.display = "block"
+  online.style.display = "none"
+});
   }
 
   // Expose player so it can be used from the console
   window.player = player;
-});</script></body></html>
+});
+
+
+const offline = document.getElementById("offline")
+const online = document.getElementById("online")
+online.style.display = "none"
+offline.style.display = "block"
+
+player.on('playing', event => {
+  offline.style.display = "none"
+  online.style.display = "block"
+})
+
+player.on('pause', event => {
+  offline.style.display = "block"
+  online.style.display = "none"
+})</script></body></html>
