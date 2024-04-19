@@ -33,7 +33,7 @@ html body {
 }
 .gameWrapper .coop-buy {
   position: absolute;
-  top: 16px;
+  top: 20px;
   left: 132px;
   background-image: url(https://i.imgur.com/uZu6dxm.png);
   height: 180px;
