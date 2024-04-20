@@ -612,20 +612,13 @@ function checkTime(i) {
     return i;
 }
 
-const action = document.querySelector('.action');
-action.addEventListener('click', ()=> {
-  action.classList.toggle('active')
-})
 
 const playlist = document.querySelector('.playlist');
 playlist.addEventListener('click', ()=> {
   playlist.classList.toggle('active')
 })
 
-const normaltopup = document.querySelector('.normaltopup');
-normaltopup.addEventListener('click', ()=> {
-  normaltopup.classList.toggle('active')
-})
+
 
 const shibaconvert = document.querySelector('.shibaconvert');
 shibaconvert.addEventListener('click', ()=> {
