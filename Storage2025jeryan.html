@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ESTORAGE DASHBOARD | View Your PROFIT & Gains</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/date-fns"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="calculator-container">
+
+            <h1>STORAGE GAIN/LOSS & PROFIT </h1>
+
+            <p class="subtitle">REALISTIC DATA how much you could have made if you join in STORAGE COLLABORATION</p>
+
+            <div class="calculator">
+
+                <!-- Investment Type Selection -->
+
+                <div class="investment-type-section">
+
+                    <h2>STORAGE Type</h2>
+
+                    <div class="toggle-container">
+
+                        <button class="toggle-btn active" data-type="one-time">STARTER PLAN</button>
+
+                    </div>
+
+                </div>
+
+                <!-- Investment Details -->
+
+                <div class="investment-section">
+
+                    <h2>HANDLING Details</h2>
+
+                    
+
+                    <!-- One-time Investment Fields -->
+
+                    <div id="one-time-fields">
+
+                        <div class="input-group">
+
+                            <label for="investment-amount">Handling Amount (PHP)</label>
+
+                            <input type="number" id="investment-amount" min="0" step="100" value="210"readonly>
+                         
+
+                            <span class="helper-text">Paid collaboration : starter-j</span>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label for="investment-date">Handling Date</label>
+
+                            <input type="date" id="investment-date" min="2015-01-01"readonly>
+
+                            <span class="helper-text">When would you have started?</span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- DCA Investment Fields -->
+
+                    <div id="dca-fields" style="display: none;">
+
+                        <div class="input-group">
+
+                            <label for="monthly-amount">Monthly Investment (USD)</label>
+
+                            <input type="number" id="monthly-amount" placeholder="Enter monthly amount" min="0" step="100" value="100">
+
+                            <span class="helper-text">How much would you invest each month?</span>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label for="start-date">Start Date</label>
+
+                            <input type="date" id="start-date" min="2015-01-01">
+
+                            <span class="helper-text">When would you have started investing?</span>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label for="end-date">End Date</label>
+
+                            <input type="date" id="end-date">
+
+                            <span class="helper-text">When would you have stopped? (Leave empty for today)</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="info-box">
+
+                        <p>💡 Using real historical program founded by ECHOZONEph with Cryptomarket and storage collaboration</p>
+
+                    </div>
+
+                </div>
+
+                <button id="calculate" class="calculate-btn">Income Returns</button>
+
+                <div class="loading-container" id="loading" style="display: none;">
+
+                    <div class="loading-spinner"></div>
+
+                    <p>Fetching historical data...</p>
+
+                </div>
+
+                <div class="error-container" id="error" style="display: none;">
+
+                    <!-- Error messages will appear here -->
+
+                </div>
+
+                <!-- Chart Section -->
+
+                <div class="chart-section" style="display: none;">
+
+                    <h2>Collaboration Growth Chart</h2>
+
+                    <div class="chart-container">
+
+                        <canvas id="investmentChart"></canvas>
+
+                    </div>
+
+                    <div class="chart-legend">
+
+                        <div class="legend-item">
+
+                            <span class="legend-color bitcoin"></span>
+
+                            <span>Collaborative coins </span>
+
+                        </div>
+
+                        <div class="legend-item">
+
+                            <span class="legend-color sp500"></span>
+
+                            <span>Competitor A</span>
+
+                        </div>
+
+                        <div class="legend-item">
+
+                            <span class="legend-color gold"></span>
+
+                            <span>Competitor B</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Results Display -->
+
+                <div class="results" style="display: none;">
+
+                    <div class="result-item">
+
+                        <h3>Income Summary</h3>
+
+                        <div class="result-grid">
+
+                            <div>
+
+                                <p>Handling amount</p>
+
+                                <span id="total-invested">$0.00</span>
+
+                            </div>
+
+                             <div>
+
+                              <p>Amount in BTC</p>
+
+                                <span id="btc-amount">0 BTC</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>Average Buy Price</p>
+
+                                <span id="avg-price">$0.00</span>
+
+                            </div>
+
+               
+
+                            <div>
+
+                                <p>Current Bitcoin Price</p>
+
+                                <span id="current-price">$0.00</span> 
+
+                            </div> 
+
+                        </div>
+
+                    </div>
+
+                    <div class="result-item">
+
+                        <h3>Returns</h3>
+
+                        <div class="result-grid">
+
+                            <div>
+
+                                <p>Your Current Storage Income</p>
+
+                                <span id="current-value">$0.00</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>Total Profit/Loss</p>
+
+                                <span id="profit-loss">$0.00</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>ROI</p>
+
+                                <span id="roi">0.00%</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>Annualized Return</p>
+
+                                <span id="annualized-return">0.00%</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                   <div class="result-item"> 
+
+                        <h3>Comparison</h3>
+
+                      <div class="result-grid"> 
+
+                            <div>
+
+                                <p>Competitor A</p>
+
+                                <span id="sp500-return">0.00%</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>Competitor B</p>
+
+                                <span id="gold-return">0.00%</span>
+
+                            </div> 
+
+                        </div> 
+
+                    </div> 
+
+                </div> 
+
+            </div> 
+
+        </div>
+
+        <!-- Blog Post -->
+
+        <article class="blog-post">
+
+            <h2>Understanding in ECHOZONEPH storage collaboration and returning profit</h2>
+
+            
+
+            <section>
+
+                <h3>Introduction</h3>
+
+                <p>Echozone's meteoric rise has left many wondering, "What if I had join and collab earlier?" Our Collaboration (Fear Of Missing Out) in this dashboard we helps everyone to explore this question by presenting to them a potential returns from historical programs founded by ECHOZONEph . Whether anyone is curious about a collaboration averaging strategy, this dashboard 
+
+                provides insights into what could have been.</p>
+
+            </section>
+
+            <section>
+
+                <h3>Understanding the Results</h3>
+
+                <p>This STORAGE DASHBOARD provides comprehensive insights into your hypothetical COLLABORATION:</p>
+
+                <ul>
+
+                    <li><strong>Income Summary:</strong> Shows total HANDLING amount</li>
+
+                    <li><strong>Returns Analysis:</strong> Displays current storage income, profit/loss, and ROI</li>
+
+                    <li><strong>Performance Comparison:</strong> Compares to competitors </li>
+
+                </ul>
+
+                <p>All insights use real historical data from ECHOZONEph, ensuring accurate results.</p>
+
+            </section>
+
+            <section>
+
+                <h3>Conclusion</h3>
+
+                <p>While past performance doesn't guarantee future results, understanding storage collaboration and historical returns can provide valuable insights for collaboration decisions. This dashboard helps you explore various scenarios and potential outcomes, enabling better-informed decisions about STORAGE COLLABORATION . Remember to consider factors like market volatility, personal risk tolerance, and goals when planning your profitable strategy.</p>
+
+            </section>
+
+        </article>
+
+        <!-- FAQ Section -->
+
+        <section class="faq-section">
+
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+
+                <h3>How accurate are the income returns?</h3>
+
+                <p>This dashboard uses real historical data from ECHOZONEph's API, providing accurate profit based on realtime database. However, the results don't include transaction fees, storage costs, or tax implications.</p>
+
+            </div>
+
+            <div class="faq-item">
+
+                <h3>Can i add more plan?</h3>
+
+                <p>No, but we can add another dashboard for you.</p>
+
+            </div>
+
+            <div class="faq-item">
+
+                <h3>How much is the refferal reward ?</h3>
+
+                <p>approximately it is ₱50 per dashboards created</p>
+
+            </div>
+
+            <div class="faq-item">
+
+                <h3>What factors aren't included in the storage dashboard ?</h3>
+
+                <p>Storage dashboard doesn't account for transaction fees, exchange fees, storage/custody costs, taxes, or the effects of market liquidity. These factors would reduce actual returns in practice.</p>
+
+            </div>
+
+       <div class="faq-item">
+
+                <h3>What happened if my money loss profit, how about my deposited amount?</h3>
+
+                <p>We get back your deposited amount, 100% guaranteed. but not applicable for dashboard with withdrawal record and dashboard created yesterday or 1month old. 
+
+                need atleast 1month longer,</p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
