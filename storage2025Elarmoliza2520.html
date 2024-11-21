@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+     <meta name="viewport" content="width=device-width"> 
+    <title>ESTORAGE DASHBOARD | View Your PROFIT & Gains</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/date-fns"></script>
+<style>:root {
+    --primary-color: #f7931a;
+    --secondary-color: #2d3436;
+    --background-color: #f8f9fa;
+    --text-color: #2d3436;
+    --success-color: #2ecc71;
+    --warning-color: #e74c3c;
+    --info-color: #f1c40f;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --gradient-start: #f7931a;
+    --gradient-end: #f1b158;
+    --sp500-color: #2ecc71;
+    --gold-color: #f1c40f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.calculator-container {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Investment Type Section */
+.investment-type-section {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #e0e0e0;
+}
+
+.toggle-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 1rem;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+    border-color: var(--primary-color);
+}
+
+.toggle-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Investment Section */
+.investment-section {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #e0e0e0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+input {
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(247, 147, 26, 0.1);
+}
+
+.helper-text {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Info Box */
+.info-box {
+    background-color: rgba(247, 147, 26, 0.1);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+}
+
+.info-box p {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+/* Loading Spinner */
+.loading-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Calculate Button */
+.calculate-btn {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calculate-btn:hover {
+    filter: brightness(110%);
+    transform: translateY(-1px);
+}
+
+/* Error Container */
+.error-container {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--warning-color);
+    margin-top: 1rem;
+}
+
+/* Chart Section */
+.chart-section {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #e0e0e0;
+    margin: 2rem 0;
+}
+
+.chart-section h2 {
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 1rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.legend-color {
+    width: 20px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.legend-color.bitcoin {
+    background-color: var(--primary-color);
+}
+
+.legend-color.sp500 {
+    background-color: var(--sp500-color);
+}
+
+.legend-color.gold {
+    background-color: var(--gold-color);
+}
+
+/* Results Section */
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.result-item {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-color);
+}
+
+.result-item h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.result-grid div {
+    padding: 1rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.result-grid p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.result-grid span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Status Colors */
+.profit {
+    color: var(--success-color) !important;
+}
+
+.loss {
+    color: var(--warning-color) !important;
+}
+
+/* Blog Post Styles */
+.blog-post {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+}
+
+.blog-post h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.blog-post h3 {
+    color: var(--secondary-color);
+    margin: 1.5rem 0 1rem;
+    font-size: 1.3rem;
+}
+
+.blog-post p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.blog-post ul,
+.blog-post ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.blog-post li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+}
+
+.blog-post strong {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* FAQ Section Styles */
+.faq-section {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.faq-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+.faq-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.faq-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.faq-item h3 {
+    color: var(--secondary-color);
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.faq-item p {
+    color: #666;
+    line-height: 1.7;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.results, .chart-section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem auto;
+    }
+
+    .calculator-container,
+    .blog-post,
+    .faq-section {
+        padding: 1.5rem;
+    }
+
+    .toggle-container {
+        flex-direction: column;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-container {
+        height: 300px;
+    }
+
+    .chart-legend {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .calculator h2 {
+        font-size: 1.2rem;
+    }
+
+    .blog-post h2,
+    .faq-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .blog-post h3,
+    .faq-item h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .calculator-container,
+    .blog-post,
+    .faq-section {
+        box-shadow: none;
+    }
+
+    .calculate-btn,
+    .toggle-btn {
+        display: none;
+    }
+
+    .chart-container {
+        break-inside: avoid;
+    }
+}</style>
+</head>
+                
+
+<body>
+
+    <div class="container">
+
+        <div class="calculator-container">
+
+            <h1>STORAGE GAIN/LOSS & PROFIT </h1>
+
+<!--dito edit-->            <p class="subtitle">REALISTIC DATA how much you could have made because you join in STORAGE COLLABORATION - Elarmo.liza2520@gmail.com</p>
+
+            <div class="calculator">
+
+                <!-- Investment Type Selection -->
+
+                <div class="investment-type-section">
+
+                    <h2>STORAGE Type</h2>
+
+                    <div class="toggle-container">
+
+                        <button class="toggle-btn active" data-type="one-time">STARTER PLAN</button>
+
+                    </div>
+
+                </div>
+
+                <!-- Investment Details -->
+
+                <div class="investment-section">
+
+                    <h2>HANDLING Details</h2>
+
+                    
+
+                    <!-- One-time Investment Fields -->
+
+                    <div id="one-time-fields">
+
+                        <div class="input-group">
+
+<!--dito edit-->                           <label for="investment-amount">Handling Amount (PHP)</label>
+
+                            <input type="number" id="investment-amount" min="0" step="100" value="105"readonly>
+                         
+
+<!--dito edit-->                            <span class="helper-text">Paid collaboration : starter-U <br>Deposit:₱105</br><br>0 DOWNLINES: ₱0</br></span>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label for="investment-date">Handling Date</label>
+
+                            <input type="date" id="investment-date" min="2015-01-01"readonly>
+
+                            <span class="helper-text">When would you have started?</span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- DCA Investment Fields -->
+
+                    <div id="dca-fields" style="display: none;">
+
+                        <div class="input-group">
+
+                            <label for="monthly-amount">Monthly Investment (USD)</label>
+
+                            <input type="number" id="monthly-amount" placeholder="Enter monthly amount" min="0" step="100" value="100">
+
+                            <span class="helper-text">How much would you invest each month?</span>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label for="start-date">Start Date</label>
+
+                            <input type="date" id="start-date" min="2015-01-01">
+
+                            <span class="helper-text">When would you have started investing?</span>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label for="end-date">End Date</label>
+
+                            <input type="date" id="end-date">
+
+                            <span class="helper-text">When would you have stopped? (Leave empty for today)</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="info-box">
+
+                        <p>💡 Using real historical program founded by ECHOZONEph with Cryptomarket and storage collaboration</p>
+
+                    </div>
+
+                </div>
+
+                <button id="calculate" class="calculate-btn">Income Returns</button>
+
+                <div class="loading-container" id="loading" style="display: none;">
+
+                    <div class="loading-spinner"></div>
+
+                    <p>Fetching historical data...</p>
+
+                </div>
+
+                <div class="error-container" id="error" style="display: none;">
+
+                    <!-- Error messages will appear here -->
+
+                </div>
+
+                <!-- Chart Section -->
+
+                <div class="chart-section" style="display: none;">
+
+                    <h2>Collaboration Growth Chart</h2>
+
+                    <div class="chart-container">
+
+                        <canvas id="investmentChart"></canvas>
+
+                    </div>
+
+                    <div class="chart-legend">
+
+                        <div class="legend-item">
+
+                            <span class="legend-color bitcoin"></span>
+
+                            <span>Collaborative coins </span>
+
+                        </div>
+
+                        <div class="legend-item">
+
+                            <span class="legend-color sp500"></span>
+
+                            <span>Competitor A</span>
+
+                        </div>
+
+                        <div class="legend-item">
+
+                            <span class="legend-color gold"></span>
+
+                            <span>Competitor B</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Results Display -->
+
+                <div class="results" style="display: none;">
+
+                    <div class="result-item">
+
+                        <h3>Income Summary</h3>
+
+                        <div class="result-grid">
+
+                            <div>
+
+                                <p>Handling amount</p>
+
+                                <span id="total-invested">$0.00</span>
+
+                            </div>
+
+                             <div>
+
+                              <p>Amount in BTC</p>
+
+                                <span id="btc-amount">0 BTC</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>Average Buy Price</p>
+
+                                <span id="avg-price">$0.00</span>
+
+                            </div>
+
+               
+
+                            <div>
+
+                                <p>Current Bitcoin Price</p>
+
+                                <span id="current-price">$0.00</span> 
+
+                            </div> 
+
+                        </div>
+
+                    </div>
+
+                    <div class="result-item">
+
+                        <h3>Returns</h3>
+
+                        <div class="result-grid">
+
+                            <div>
+
+                                <p>Your Current Storage Income</p>
+
+                                <span id="current-value">$0.00</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>Total Profit/Loss</p>
+
+                                <span id="profit-loss">$0.00</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>ROI</p>
+
+                                <span id="roi">0.00%</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>Annualized Return</p>
+
+                                <span id="annualized-return">0.00%</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                   <div class="result-item"> 
+
+                        <h3>Comparison</h3>
+
+                      <div class="result-grid"> 
+
+                            <div>
+
+                                <p>Competitor A</p>
+
+                                <span id="sp500-return">0.00%</span>
+
+                            </div>
+
+                            <div>
+
+                                <p>Competitor B</p>
+
+                                <span id="gold-return">0.00%</span>
+
+                            </div> 
+
+                        </div> 
+
+                    </div> 
+
+                </div> 
+
+            </div> 
+
+        </div>
+
+        <!-- Blog Post -->
+
+        <article class="blog-post">
+
+            <h2>Understanding in ECHOZONEPH storage collaboration and returning profit</h2>
+
+            
+
+            <section>
+
+                <h3>Introduction</h3>
+
+                <p>Echozone's meteoric rise has left many wondering, "What if I had join and collab earlier?" Our Collaboration (Fear Of Missing Out) in this dashboard we helps everyone to explore this question by presenting to them a potential returns from historical programs founded by ECHOZONEph . Whether anyone is curious about a collaboration averaging strategy, this dashboard 
+
+                provides insights into what could have been.</p>
+
+            </section>
+
+            <section>
+
+                <h3>Understanding the Results</h3>
+
+                <p>This STORAGE DASHBOARD provides comprehensive insights into your hypothetical COLLABORATION:</p>
+
+                <ul>
+
+                    <li><strong>Income Summary:</strong> Shows total HANDLING amount</li>
+
+                    <li><strong>Returns Analysis:</strong> Displays current storage income, profit/loss, and ROI</li>
+
+                    <li><strong>Performance Comparison:</strong> Compares to competitors </li>
+
+                </ul>
+
+                <p>All insights use real historical data from ECHOZONEph, ensuring accurate results.</p>
+
+            </section>
+
+            <section>
+
+                <h3>Conclusion</h3>
+
+                <p>While past performance doesn't guarantee future results, understanding storage collaboration and historical returns can provide valuable insights for collaboration decisions. This dashboard helps you explore various scenarios and potential outcomes, enabling better-informed decisions about STORAGE COLLABORATION . Remember to consider factors like market volatility, personal risk tolerance, and goals when planning your profitable strategy.</p>
+
+            </section>
+
+        </article>
+
+        <!-- FAQ Section -->
+
+        <section class="faq-section">
+
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+
+                <h3>How accurate are the income returns?</h3>
+
+                <p>This dashboard uses real historical data from ECHOZONEph's API, providing accurate profit based on realtime database. However, the results don't include transaction fees, storage costs, or tax implications.</p>
+
+            </div>
+
+            <div class="faq-item">
+
+                <h3>Can i add more plan?</h3>
+
+                <p>No, but we can add another dashboard for you.</p>
+
+            </div>
+
+            <div class="faq-item">
+
+                <h3>How much is the refferal reward ?</h3>
+
+                <p>approximately it is ₱50 per dashboards created</p>
+
+            </div>
+
+            <div class="faq-item">
+
+                <h3>What factors aren't included in the storage dashboard ?</h3>
+
+                <p>Storage dashboard doesn't account for transaction fees, exchange fees, storage/custody costs, taxes, or the effects of market liquidity. These factors would reduce actual returns in practice.</p>
+
+            </div>
+
+       <div class="faq-item">
+
+                <h3>What happened if my money loss profit, how about my deposited amount?</h3>
+
+                <p>We get back your deposited amount, 100% guaranteed. but not applicable for dashboard with withdrawal record and dashboard created yesterday or 1month old. 
+
+                need atleast 1month longer,</p>
+
+            </div>
+
+            <div class="faq-item">
+
+                <h3>What is revenue sharing in echozone</h3>
+
+                <p>Revenue sharing  is a performance-based income model that involves sharing business profits or losses among participating partners. Revenue sharing is a profit-sharing system that ensures all parties involved are compensated for their contribution to the business.
+
+that means echozone doesn't involved on system of traditional e-comm business, like dropshipping, reselling or networking.  because echozone has with unique, sustainable and systematic revshare program. </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => {
+    // Constants
+    const CRYPTOCOMPARE_API = 'https://min-api.cryptocompare.com/data';
+    const MAX_RETRIES = 3;
+    const RETRY_DELAY = 1000;
+    const SP500_ANNUAL_RETURN = 0.10; // 10% average annual return
+    const GOLD_ANNUAL_RETURN = 0.05;  // 5% average annual return
+
+    // Cache for API responses
+    const priceCache = new Map();
+
+    // Get elements
+    const investmentType = document.querySelectorAll('.toggle-btn');
+    const oneTimeFields = document.getElementById('one-time-fields');
+    const dcaFields = document.getElementById('dca-fields');
+    const investmentAmount = document.getElementById('investment-amount');
+    const investmentDate = document.getElementById('investment-date');
+    const monthlyAmount = document.getElementById('monthly-amount');
+    const startDate = document.getElementById('start-date');
+    const endDate = document.getElementById('end-date');
+    const calculateBtn = document.getElementById('calculate');
+    const loadingContainer = document.getElementById('loading');
+    const errorContainer = document.getElementById('error');
+    const resultsContainer = document.querySelector('.results');
+    const chartSection = document.querySelector('.chart-section');
+    const chartCanvas = document.getElementById('investmentChart');
+
+    // Get result elements
+    const totalInvested = document.getElementById('total-invested');
+    const btcAmount = document.getElementById('btc-amount');
+    const avgPrice = document.getElementById('avg-price');
+    const currentPrice = document.getElementById('current-price');
+    const currentValue = document.getElementById('current-value');
+    const profitLoss = document.getElementById('profit-loss');
+    const roi = document.getElementById('roi');
+    const annualizedReturn = document.getElementById('annualized-return');
+    const sp500Return = document.getElementById('sp500-return');
+    const goldReturn = document.getElementById('gold-return');
+
+<!--dito edit-->    // Set min/max dates
+    const today = new Date().toISOString().split('T')[0];
+    const bitcoinStart = '2015-01-01'; // Start from 2015 for better data availability
+    [investmentDate, startDate, endDate].forEach(input => {
+        if (input) {
+            input.min = bitcoinStart;
+            input.max = today;
+            input.value = '2024-11-22'; // Set default to 2017
+        }
+    });
+
+    async function fetchWithRetry(url, retries = MAX_RETRIES) {
+        for (let i = 0; i < retries; i++) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                if (i === retries - 1) throw error;
+                await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+            }
+        }
+    }
+
+    async function getBitcoinPrices(startDate, endDate) {
+        const startTimestamp = Math.floor(new Date(startDate).getTime() / 1000);
+        const endTimestamp = Math.floor(new Date(endDate).getTime() / 1000);
+        const cacheKey = `prices-${startTimestamp}-${endTimestamp}`;
+
+        if (priceCache.has(cacheKey)) {
+            return priceCache.get(cacheKey);
+        }
+
+        try {
+            // Get current price
+            const currentPriceUrl = `${CRYPTOCOMPARE_API}/price?fsym=BTC&tsyms=USD`;
+            const currentPriceData = await fetchWithRetry(currentPriceUrl);
+            const currentPrice = currentPriceData.USD;
+
+            // Get historical daily data with exchange and aggregate parameters
+            const url = `${CRYPTOCOMPARE_API}/v2/histoday?fsym=BTC&tsym=USD&e=CCCAGG&limit=2000&toTs=${endTimestamp}&tryConversion=true&aggregate=1`;
+            const data = await fetchWithRetry(url);
+            
+            if (data.Response === "Success" && data.Data.Data.length > 0) {
+                const prices = new Map();
+                
+                // Add historical prices using closing prices
+                data.Data.Data
+                    .filter(d => d.time >= startTimestamp && d.close > 0)
+                    .forEach(d => {
+                        const dateStr = new Date(d.time * 1000).toISOString().split('T')[0];
+                        prices.set(dateStr, d.close);
+                    });
+
+                // Add current price for today
+                prices.set(today, currentPrice);
+
+                // If we don't have the exact start date, get the closest date
+                if (!prices.has(startDate)) {
+                    // Get historical daily data specifically for start date
+                    const startDateUrl = `${CRYPTOCOMPARE_API}/v2/histoday?fsym=BTC&tsym=USD&e=CCCAGG&limit=1&toTs=${startTimestamp}&tryConversion=true&aggregate=1`;
+                    const startDateData = await fetchWithRetry(startDateUrl);
+                    
+                    if (startDateData.Response === "Success" && startDateData.Data.Data.length > 0) {
+                        const startPrice = startDateData.Data.Data[0].close;
+                        if (startPrice > 0) {
+                            prices.set(startDate, startPrice);
+                        }
+                    }
+                }
+
+                // Verify we have valid prices
+                if (!prices.has(startDate)) {
+                    throw new Error('Unable to get historical Bitcoin price for the selected date');
+                }
+
+                priceCache.set(cacheKey, prices);
+                return prices;
+            }
+            throw new Error('Failed to fetch Bitcoin prices');
+        } catch (error) {
+            throw new Error('Failed to fetch Bitcoin prices. Please try again.');
+        }
+    }
+
+    function calculateAnnualizedReturn(startValue, endValue, years) {
+        return years > 0 ? Math.pow(endValue / startValue, 1 / years) - 1 : 0;
+    }
+
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'PHP',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(amount);
+    }
+
+    function formatPercent(value) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'percent',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(value);
+    }
+
+    function formatBTC(amount) {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 8,
+            maximumFractionDigits: 8
+        }).format(amount);
+    }
+
+    function createInvestmentChart(dates, bitcoinValues, sp500Values, goldValues) {
+        // Destroy existing chart if it exists
+        if (window.investmentChart instanceof Chart) {
+            window.investmentChart.destroy();
+        }
+
+        const ctx = chartCanvas.getContext('2d');
+        window.investmentChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: 'Collaborative coins',
+                        data: bitcoinValues,
+                        borderColor: getComputedStyle(document.documentElement)
+                            .getPropertyValue('--primary-color').trim(),
+                        backgroundColor: 'rgba(247, 147, 26, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Competitor A',
+                        data: sp500Values,
+                        borderColor: getComputedStyle(document.documentElement)
+                            .getPropertyValue('--sp500-color').trim(),
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Competitor B',
+                        data: goldValues,
+                        borderColor: getComputedStyle(document.documentElement)
+                            .getPropertyValue('--gold-color').trim(),
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => formatCurrency(value)
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    async function calculateOneTimeInvestment(amount, date) {
+        const prices = await getBitcoinPrices(date, today);
+        const historicalPrice = prices.get(date);
+        const currentBtcPrice = prices.get(today);
+
+        if (!historicalPrice || !currentBtcPrice) {
+            throw new Error('Unable to get Bitcoin prices for the selected dates');
+        }
+
+        const btcPurchased = amount / historicalPrice;
+        const currentVal = btcPurchased * currentBtcPrice;
+        const profit = currentVal - amount;
+        const years = Math.max((new Date(today) - new Date(date)) / (365 * 24 * 60 * 60 * 1000), 0.0001);
+
+        // Calculate values for chart
+        const dates = Array.from(prices.keys()).sort();
+        const bitcoinValues = dates.map(d => {
+            const price = prices.get(d);
+            return price ? btcPurchased * price : null;
+        }).filter(val => val !== null);
+
+        const sp500Values = dates.map(d => {
+            const yearsSinceStart = Math.max((new Date(d) - new Date(date)) / (365 * 24 * 60 * 60 * 1000), 0);
+            return amount * Math.pow(1 + SP500_ANNUAL_RETURN, yearsSinceStart);
+        });
+
+        const goldValues = dates.map(d => {
+            const yearsSinceStart = Math.max((new Date(d) - new Date(date)) / (365 * 24 * 60 * 60 * 1000), 0);
+            return amount * Math.pow(1 + GOLD_ANNUAL_RETURN, yearsSinceStart);
+        });
+
+        createInvestmentChart(dates, bitcoinValues, sp500Values, goldValues);
+
+        return {
+            totalInvested: amount,
+            btcAmount: btcPurchased,
+            averagePrice: historicalPrice,
+            currentPrice: currentBtcPrice,
+            currentValue: currentVal,
+            profitLoss: profit,
+            roi: profit / amount,
+            annualizedReturn: calculateAnnualizedReturn(amount, currentVal, years),
+            years
+        };
+    }
+
+    async function calculateDCA(monthlyAmount, startDate, endDate) {
+        const end = endDate || today;
+        const prices = await getBitcoinPrices(startDate, end);
+        
+        let totalInvested = 0;
+        let totalBtc = 0;
+        let investments = [];
+        let currentDate = new Date(startDate);
+        const endDateTime = new Date(end);
+
+        // Calculate monthly investments
+        while (currentDate <= endDateTime) {
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const price = prices.get(dateStr);
+            
+            if (price && price > 0) {
+                const btcPurchased = monthlyAmount / price;
+                totalInvested += monthlyAmount;
+                totalBtc += btcPurchased;
+                investments.push({ date: dateStr, btc: btcPurchased });
+            }
+            
+            currentDate.setMonth(currentDate.getMonth() + 1);
+        }
+
+        if (investments.length === 0) {
+            throw new Error('No valid price data available for the selected period');
+        }
+
+        const currentBtcPrice = prices.get(today);
+        if (!currentBtcPrice) {
+            throw new Error('Unable to get current Bitcoin price');
+        }
+
+        const currentVal = totalBtc * currentBtcPrice;
+        const profit = currentVal - totalInvested;
+        const years = Math.max((new Date(end) - new Date(startDate)) / (365 * 24 * 60 * 60 * 1000), 0.0001);
+
+        // Calculate values for chart
+        const dates = Array.from(prices.keys()).sort();
+        const bitcoinValues = dates.map(date => {
+            const price = prices.get(date);
+            if (!price) return null;
+            const btcOwned = investments
+                .filter(inv => inv.date <= date)
+                .reduce((sum, inv) => sum + inv.btc, 0);
+            return btcOwned * price;
+        }).filter(val => val !== null);
+
+        const sp500Values = dates.map(date => {
+            let value = 0;
+            investments.forEach(inv => {
+                if (inv.date <= date) {
+                    const yearsSinceInvestment = Math.max((new Date(date) - new Date(inv.date)) / (365 * 24 * 60 * 60 * 1000), 0);
+                    value += monthlyAmount * Math.pow(1 + SP500_ANNUAL_RETURN, yearsSinceInvestment);
+                }
+            });
+            return value;
+        });
+
+        const goldValues = dates.map(date => {
+            let value = 0;
+            investments.forEach(inv => {
+                if (inv.date <= date) {
+                    const yearsSinceInvestment = Math.max((new Date(date) - new Date(inv.date)) / (365 * 24 * 60 * 60 * 1000), 0);
+                    value += monthlyAmount * Math.pow(1 + GOLD_ANNUAL_RETURN, yearsSinceInvestment);
+                }
+            });
+            return value;
+        });
+
+        createInvestmentChart(dates, bitcoinValues, sp500Values, goldValues);
+
+        return {
+            totalInvested,
+            btcAmount: totalBtc,
+            averagePrice: totalInvested / totalBtc,
+            currentPrice: currentBtcPrice,
+            currentValue: currentVal,
+            profitLoss: profit,
+            roi: profit / totalInvested,
+            annualizedReturn: calculateAnnualizedReturn(totalInvested, currentVal, years),
+            years
+        };
+    }
+
+    function showError(message) {
+        errorContainer.textContent = message;
+        errorContainer.style.display = 'block';
+        loadingContainer.style.display = 'none';
+        resultsContainer.style.display = 'none';
+        chartSection.style.display = 'none';
+    }
+
+    function updateResults(results) {
+        totalInvested.textContent = formatCurrency(results.totalInvested);
+        btcAmount.textContent = `${formatBTC(results.btcAmount)} BTC`;
+        avgPrice.textContent = formatCurrency(results.averagePrice);
+        currentPrice.textContent = formatCurrency(results.currentPrice);
+        currentValue.textContent = formatCurrency(results.currentValue);
+        profitLoss.textContent = formatCurrency(results.profitLoss);
+        roi.textContent = formatPercent(results.roi);
+        annualizedReturn.textContent = formatPercent(results.annualizedReturn);
+
+        // Calculate traditional investment returns
+        const sp500Value = Math.pow(1 + SP500_ANNUAL_RETURN, results.years);
+        const goldValue = Math.pow(1 + GOLD_ANNUAL_RETURN, results.years);
+        sp500Return.textContent = formatPercent(sp500Value - 1);
+        goldReturn.textContent = formatPercent(goldValue - 1);
+
+        // Apply profit/loss colors
+        profitLoss.className = results.profitLoss >= 0 ? 'profit' : 'loss';
+        roi.className = results.roi >= 0 ? 'profit' : 'loss';
+        annualizedReturn.className = results.annualizedReturn >= 0 ? 'profit' : 'loss';
+
+        errorContainer.style.display = 'none';
+        loadingContainer.style.display = 'none';
+        resultsContainer.style.display = 'block';
+        chartSection.style.display = 'block';
+    }
+
+    async function calculateReturns() {
+        const isOneTime = oneTimeFields.style.display !== 'none';
+        
+        try {
+            errorContainer.style.display = 'none';
+            loadingContainer.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            chartSection.style.display = 'none';
+
+            let results;
+            if (isOneTime) {
+                const amount = parseFloat(investmentAmount.value);
+                const date = investmentDate.value;
+
+                if (!amount || !date) {
+                    throw new Error('Please fill in all fields');
+                }
+
+                results = await calculateOneTimeInvestment(amount, date);
+            } else {
+                const amount = parseFloat(monthlyAmount.value);
+                const start = startDate.value;
+                const end = endDate.value || today;
+
+                if (!amount || !start) {
+                    throw new Error('Please fill in all required fields');
+                }
+
+                results = await calculateDCA(amount, start, end);
+            }
+
+            updateResults(results);
+        } catch (error) {
+            showError(error.message);
+        }
+    }
+
+    // Add event listeners
+    calculateBtn.addEventListener('click', calculateReturns);
+
+    investmentType.forEach(btn => {
+        btn.addEventListener('click', () => {
+            investmentType.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if (btn.dataset.type === 'one-time') {
+                oneTimeFields.style.display = 'block';
+                dcaFields.style.display = 'none';
+            } else {
+                oneTimeFields.style.display = 'none';
+                dcaFields.style.display = 'block';
+            }
+        });
+    });
+
+    // Handle Enter key
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                calculateReturns();
+            }
+        });
+    });
+
+    // Add input validation
+    investmentAmount.addEventListener('input', () => {
+        const value = parseFloat(investmentAmount.value);
+        if (value < 0) investmentAmount.value = 0;
+        if (value > 1000000000) investmentAmount.value = 1000000000;
+    });
+
+    monthlyAmount.addEventListener('input', () => {
+        const value = parseFloat(monthlyAmount.value);
+        if (value < 0) monthlyAmount.value = 0;
+        if (value > 1000000) monthlyAmount.value = 1000000;
+    });
+});</script>
+</body>
+
+</html>
