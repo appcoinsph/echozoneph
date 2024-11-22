@@ -1,6 +1,6 @@
 body{
 /*changing background color*/
-    background-color:black;
+    background-color:#ebebeb;
 }
 .searchbox{
 /*definint width of form element*/
@@ -25,9 +25,9 @@ input[type="search"]{
 /*positioning background image*/
     background-position:8px 12px;
 /*changing background color form white*/
-    background-color:white;
+    background-color:#7accc8;
 }
-/*now using placeholder property to change color of holder text and making it consitent accross the browser by use of prefix*/
+/*now using placeholder property to change color of placholder text and making it consitent accross the browser by use of prefix*/
 input[type="search"]::-webkit-input-placeholder{
     color:#b1e0de;
 }
@@ -62,7 +62,7 @@ ul li{
 /*adding effect when the mouse is hovered over list item*/
 .searchbox ul li a:hover{
     color:#b23b61;
-    background:black;
+    background:#ecd1da;
 }
 /*moving it slightly toware right when hovered*/
 .searchbox ul li:hover{
@@ -95,4 +95,3 @@ input[type="search"]:focus + .suggestions li{
   text-decoration:none;
   color: #1f5350;
 }
-
