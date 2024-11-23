@@ -69,7 +69,8 @@
         .darksoul-search-bar .darksoul-dropdown::-webkit-scrollbar
         {
             display: none;
-            scroll-behavior: none;
+            scroll-behavior: smooth;
+                overflow-x: hidden
         }
         .darksoul-search-bar .darksoul-dropdown ul
         {
