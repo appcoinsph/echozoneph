@@ -65,10 +65,11 @@
             transition: all 1s;
          
         }
+
         .darksoul-search-bar .darksoul-dropdown::-webkit-scrollbar
         {
             display: none;
-            scroll-behavior: smooth;
+            scroll-behavior: none;
         }
         .darksoul-search-bar .darksoul-dropdown ul
         {
