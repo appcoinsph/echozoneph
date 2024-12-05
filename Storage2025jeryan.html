@@ -970,12 +970,12 @@ that means echozone doesn't involved on system of traditional e-comm business, l
 
         try {
             // Get current price
-            const currentPriceUrl = `${CRYPTOCOMPARE_API}/price?fsym=BTC&tsyms=USD`;
+            const currentPriceUrl = `${CRYPTOCOMPARE_API}/price?fsym=BTC&tsyms=PHP`;
             const currentPriceData = await fetchWithRetry(currentPriceUrl);
-            const currentPrice = currentPriceData.USD;
+            const currentPrice = currentPriceData.PHP;
 
             // Get historical daily data with exchange and aggregate parameters
-            const url = `${CRYPTOCOMPARE_API}/v2/histoday?fsym=BTC&tsym=USD&e=CCCAGG&limit=2000&toTs=${endTimestamp}&tryConversion=true&aggregate=1`;
+            const url = `${CRYPTOCOMPARE_API}/v2/histoday?fsym=BTC&tsym=PHP&e=CCCAGG&limit=2000&toTs=${endTimestamp}&tryConversion=true&aggregate=1`;
             const data = await fetchWithRetry(url);
             
             if (data.Response === "Success" && data.Data.Data.length > 0) {
@@ -995,7 +995,7 @@ that means echozone doesn't involved on system of traditional e-comm business, l
                 // If we don't have the exact start date, get the closest date
                 if (!prices.has(startDate)) {
                     // Get historical daily data specifically for start date
-                    const startDateUrl = `${CRYPTOCOMPARE_API}/v2/histoday?fsym=BTC&tsym=USD&e=CCCAGG&limit=1&toTs=${startTimestamp}&tryConversion=true&aggregate=1`;
+                    const startDateUrl = `${CRYPTOCOMPARE_API}/v2/histoday?fsym=BTC&tsym=PHP&e=CCCAGG&limit=1&toTs=${startTimestamp}&tryConversion=true&aggregate=1`;
                     const startDateData = await fetchWithRetry(startDateUrl);
                     
                     if (startDateData.Response === "Success" && startDateData.Data.Data.length > 0) {
@@ -1025,7 +1025,7 @@ that means echozone doesn't involved on system of traditional e-comm business, l
     }
 
     function formatCurrency(amount) {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('en-PH', {
             style: 'currency',
             currency: 'PHP',
             minimumFractionDigits: 2,
@@ -1034,7 +1034,7 @@ that means echozone doesn't involved on system of traditional e-comm business, l
     }
 
     function formatPercent(value) {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('en-PH', {
             style: 'percent',
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -1042,7 +1042,7 @@ that means echozone doesn't involved on system of traditional e-comm business, l
     }
 
     function formatBTC(amount) {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('en-PH', {
             minimumFractionDigits: 8,
             maximumFractionDigits: 8
         }).format(amount);
